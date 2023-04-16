@@ -1,4 +1,3 @@
-// import { UserData } from "../Chart/Data";
 import { useState, useEffect } from "react";
 import { useFetchDocuments } from "../hooks/useFetchDocuments";
 import BarChart from "../components/Charts/BarChart";
@@ -11,8 +10,7 @@ const Statistics = () => {
 
   useEffect(() => {
     if (userData) {
-      const labels = userData.map((data) => data.type);
-      console.log(labels)
+      const labels = userData.map((data) => data.type)
       const data = userData.map((data) => data.quantity);
       setChartData({
         labels,

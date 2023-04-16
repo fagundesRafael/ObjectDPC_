@@ -92,13 +92,13 @@ const Write = () => {
             onChange={(e) => setUnity(e.target.value)}
             required
           >
-            <option value="unid(s)">unid</option>
-            <option value="kgr(s)">kg</option>
-            <option value="gr(s)">gr</option>
-            <option value="mt(s)">mt</option>
-            <option value="ml(s)">ml</option>
-            <option value="lt(s)">lt(s)</option>
-            <option value="Outros">Outros</option>
+            <option value="unid">unidade(s)</option>
+            <option value="kgr">kilo(s)</option>
+            <option value="gr">grama(s)</option>
+            <option value="mt">metro(s)</option>
+            <option value="ml">mililitro(s)</option>
+            <option value="lt">litro(s)</option>
+            <option value="fls">folha(s)</option>
           </select>
         </div>
         <input
