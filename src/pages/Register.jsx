@@ -35,6 +35,7 @@ const Register = () => {
 
   useEffect(() => {
     setError(authError)
+    console.log(db)
   }, [authError])
 
 

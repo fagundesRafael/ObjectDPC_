@@ -8,7 +8,6 @@ const Object = () => {
   const { id } = useParams();
   const { document: object, loading } = useFetchDocument("objects", id);
 
-
   const [date, setDate] = useState("");
 
   useEffect(() => {
@@ -38,11 +37,9 @@ const Object = () => {
           <h5>
             {object.quantity} - {object.unity} {object.title}
             <span>
-              {object.status === "deposited" ? (
-                <h3 className="deposited">ARQUIVADO NO DEPÓSITO</h3>
-              ) : (
-                <h2 className="refound">RESTITUÍDO</h2>
-              )}
+              {object.status === "deposited" && (<h3 className="deposited">ARQUIVADO NO DEPÓSITO</h3>)}
+              {object.status === "refound" && (<h3 className="deposited">OBJETO RESTITUÍDO</h3>)}
+              {object.status === "incinerated" && (<h3 className="deposited">OBJETO INCINERADO</h3>)}
             </span>
           </h5>
           <label>Características do objeto: </label>
@@ -66,7 +63,7 @@ const Object = () => {
             )}
           </div>
           <h3>
-            Objeto inserido por <span>{object.registredBy}</span>, {date}.
+            Objeto atualizado por <span>{object.registredBy}</span>, no dia {date}.
           </h3>
           <div className="itemsEdit">
             <Link to="/">Voltar</Link>

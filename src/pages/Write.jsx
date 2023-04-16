@@ -335,6 +335,7 @@ const Write = () => {
           </button>
         )}
         {response.error && <p>{response.error}</p>}
+        {formError && <p>{formError}</p>}
         <span>
           <p>Retornar para a página inicial?</p>
           <Link to="/">Clique aqui!</Link>

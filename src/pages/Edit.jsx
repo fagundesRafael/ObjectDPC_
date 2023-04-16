@@ -366,6 +366,9 @@ const Edit = () => {
                 <option value="refound">
                   O referido objeto foi restituído
                 </option>
+                <option value="incinerated">
+                  O referido objeto foi incinerado
+                </option>
               </select>
             </div>
             {!response.loading || !loading ? (
@@ -376,6 +379,7 @@ const Edit = () => {
               </button>
             )}
             {response.error && <p>{response.error}</p>}
+            {formError && <p>{formError}</p>}
             <span>
               <p>Retornar para a página inicial?</p>
               <Link to="/">Clique aqui!</Link>

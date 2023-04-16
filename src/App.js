@@ -1,10 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { AuthProvider } from "./contexts/AuthContext";
 import { onAuthStateChanged } from "firebase/auth";
@@ -20,6 +15,7 @@ import Home from "./pages/Home";
 import Object from "./pages/Object";
 import Write from "./pages/Write";
 import Edit from "./pages/Edit";
+import Statistics from "./pages/Statistics";
 import About from "./pages/About.jsx";
 
 import "./style.scss";
@@ -49,13 +45,23 @@ function App() {
             {user && <Navbar />}
             <Routes>
               <Route path="/login" element={user ? <Home /> : <Login />} />
-              <Route path="/register" element={!user ? <Register /> : <Home />}/>
-              <Route path="/" element={user ? <Home /> : <Login/>} />
-              <Route path="/object/:id" element={user ? <Object /> : <Login/>} />
+              <Route
+                path="/register"
+                element={!user ? <Register /> : <Home />}
+              />
+              <Route path="/" element={user ? <Home /> : <Login />} />
+              <Route
+                path="/object/:id"
+                element={user ? <Object /> : <Login />}
+              />
               <Route path="/write" element={user ? <Write /> : <Login />} />
               <Route path="/edit/:id" element={user ? <Edit /> : <Login />} />
-              <Route path="/about" element={user ? <About /> : <Login/>} />
-              <Route path="/search" element={user ? <Search /> : <Login/>} />
+              <Route
+                path="/statistics"
+                element={user ? <Statistics /> : <Login />}
+              />
+              <Route path="/about" element={user ? <About /> : <Login />} />
+              <Route path="/search" element={user ? <Search /> : <Login />} />
             </Routes>
           </Router>
           {user && <Footer />}
