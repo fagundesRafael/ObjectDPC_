@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import { useAuthValue } from "../contexts/AuthContext";
-import { useUpdateDocument } from "../hooks/useUpdateDocument"
+import { useUpdateDocument } from "../hooks/useUpdateDocument";
 import { useFetchDocument } from "../hooks/useFetchDocument";
 
 const Edit = () => {
@@ -60,37 +60,33 @@ const Edit = () => {
     setLoading(true);
     setMessage("Objeto atualizado no sistema com sucesso!");
 
-    itemsChar.push(
+    const data = {
+      quantity,
+      unity,
+      title,
       type,
       color,
       brand,
+      section,
+      shelf,
       inquiryNumber,
       reportNumber,
       term,
       aai,
-      status
-    );
-
-    console.log(itemsChar);
-
-    const data = {
-        quantity,
-        unity,
-        title,
+      status,
+      uid: user.uid,
+      registredBy: user.displayName,
+      itemsChar: [
         type,
         color,
         brand,
-        section,
-        shelf,
         inquiryNumber,
         reportNumber,
         term,
         aai,
-        status,
-        uid: user.uid,
-        registredBy: user.displayName,
-        itemsChar,
-      }
+        "deposited",
+      ],
+    };
 
     await updateDocument(id, data);
 
@@ -113,20 +109,20 @@ const Edit = () => {
                 type="number"
                 placeholder="Quantidade"
                 value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
+                onChange={(e) => setQuantity(parseInt(e.target.value))}
               />
               <select
                 value={unity}
                 onChange={(e) => setUnity(e.target.value)}
                 required
               >
-                <option value="unid(s)">unid</option>
-                <option value="kgr(s)">kg</option>
-                <option value="gr(s)">gr</option>
-                <option value="mt(s)">mt</option>
-                <option value="ml(s)">ml</option>
-                <option value="lt(s)">lt(s)</option>
-                <option value="Outros">Outros</option>
+                <option value="unid">unidade(s)</option>
+                <option disabled value="kgr">kilo(s)</option>
+                <option disabled value="gr">grama(s)</option>
+                <option disabled value="mt">metro(s)</option>
+                <option disabled value="ml">mililitro(s)</option>
+                <option disabled value="lt">litro(s)</option>
+                <option disabled value="fls">folha(s)</option>
               </select>
             </div>
             <input
@@ -142,16 +138,16 @@ const Edit = () => {
                 onChange={(e) => setType(e.target.value)}
                 required
               >
-                <option value="N.I.">Tipo de objeto</option>
+                <option value="">Tipo de objeto</option>
                 <option value="Arma">Arma</option>
                 <option value="Munição">Munição</option>
                 <option value="Entorpecente">Entorpecente</option>
                 <option value="Documento">Documento</option>
                 <option value="Celular">Celular</option>
                 <option value="Ferramenta">Ferramenta</option>
-                <option value="Jóia">Jóia</option>
-                <option value="Semi-jóia">Semi-jóia</option>
+                <option value="Jóia">Jóia / semi-jóia</option>
                 <option value="Eletrodoméstico">Eletrodoméstico</option>
+                <option value="Eletrônico">Eletrônico</option>
                 <option value="Cosmético">Cosmético</option>
                 <option value="Móvel">Móvel</option>
                 <option value="Outro">Outro</option>
@@ -227,6 +223,28 @@ const Edit = () => {
                   <option value="Outros">Outros</option>
                 </select>
               )}
+              {type === "Eletrônico" && (
+            <select
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
+              required
+            >
+              <option value="Samsung">Samsung</option>
+              <option value="Philco">Philco</option>
+              <option value="Philips">Philips</option>
+              <option value="LG">LG</option>
+              <option value="Toshiba">Toshiba</option>
+              <option value="Brastemp">Brastemp</option>
+              <option value="Lenovo">Lenovo</option>
+              <option value="Elgin">Elgin</option>
+              <option value="Eletrolux">Eletrolux</option>
+              <option value="Gree">Gree</option>
+              <option value="Consul">Consul</option>
+              <option value="Midea">Midea</option>
+              <option value="Dako">Dako</option>
+              <option value="Aoc">Aoc</option>
+            </select>
+          )}
               {type === "Cosmético" && (
                 <select
                   value={brand}

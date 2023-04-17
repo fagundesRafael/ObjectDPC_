@@ -19,7 +19,7 @@ const Write = () => {
   const [formError, setFormError] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
 
   const { user } = useAuthValue();
 
@@ -27,27 +27,12 @@ const Write = () => {
 
   const navigate = useNavigate();
 
-  const itemsChar = [];
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setFormError("");
-    setLoading(true)
-    setMessage("Objeto inserito no sistema com sucesso!")
-
-    itemsChar.push(
-      type,
-      color,
-      brand,
-      inquiryNumber,
-      reportNumber,
-      term,
-      aai,
-      "deposited"
-    );
-
-    console.log(itemsChar);
+    setLoading(true);
+    setMessage("Objeto inserito no sistema com sucesso!");
 
     await insertDocument({
       quantity,
@@ -65,12 +50,21 @@ const Write = () => {
       status: "deposited",
       uid: user.uid,
       registredBy: user.displayName,
-      itemsChar,
+      itemsChar: [
+        type,
+        color,
+        brand,
+        inquiryNumber,
+        reportNumber,
+        term,
+        aai,
+        "deposited",
+      ],
     });
 
     console.log(user.uid);
 
-    setLoading(false)
+    setLoading(false);
 
     navigate("/");
   };
@@ -85,7 +79,7 @@ const Write = () => {
             type="number"
             placeholder="Quantidade"
             value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
+            onChange={(e) => setQuantity(parseInt(e.target.value))}
           />
           <select
             value={unity}
@@ -93,12 +87,12 @@ const Write = () => {
             required
           >
             <option value="unid">unidade(s)</option>
-            <option value="kgr">kilo(s)</option>
-            <option value="gr">grama(s)</option>
-            <option value="mt">metro(s)</option>
-            <option value="ml">mililitro(s)</option>
-            <option value="lt">litro(s)</option>
-            <option value="fls">folha(s)</option>
+            <option disabled value="kgr">kilo(s)</option>
+            <option disabled value="gr">grama(s)</option>
+            <option disabled value="mt">metro(s)</option>
+            <option disabled value="ml">mililitro(s)</option>
+            <option disabled value="lt">litro(s)</option>
+            <option disabled value="fls">folha(s)</option>
           </select>
         </div>
         <input
@@ -114,16 +108,16 @@ const Write = () => {
             onChange={(e) => setType(e.target.value)}
             required
           >
-            <option value="N.I.">Tipo de objeto</option>
+            <option value="">Tipo de objeto</option>
             <option value="Arma">Arma</option>
             <option value="Munição">Munição</option>
             <option value="Entorpecente">Entorpecente</option>
             <option value="Documento">Documento</option>
             <option value="Celular">Celular</option>
             <option value="Ferramenta">Ferramenta</option>
-            <option value="Jóia">Jóia</option>
-            <option value="Semi-jóia">Semi-jóia</option>
+            <option value="Jóia">Jóia / semi-jóia</option>
             <option value="Eletrodoméstico">Eletrodoméstico</option>
+            <option value="Eletrônico">Eletrônico</option>
             <option value="Cosmético">Cosmético</option>
             <option value="Móvel">Móvel</option>
             <option value="Outro">Outro</option>
@@ -156,7 +150,6 @@ const Write = () => {
               required
             >
               <option value="N.I.">N.I.</option>
-              <option value="outros">outros</option>
             </select>
           )}
           {type === "Celular" && (
@@ -196,7 +189,29 @@ const Write = () => {
               <option value="Midea">Midea</option>
               <option value="Dako">Dako</option>
               <option value="Aoc">Aoc</option>
-              <option value="Outros">Outros</option>
+            </select>
+          )}
+          {type === "Eletrônico" && (
+            <select
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
+              required
+            >
+              <option value="Samsung">Samsung</option>
+              <option value="Philco">Philco</option>
+              <option value="Philips">Philips</option>
+              <option value="LG">LG</option>
+              <option value="Toshiba">Toshiba</option>
+              <option value="Brastemp">Brastemp</option>
+              <option value="Lenovo">Lenovo</option>
+              <option value="Elgin">Elgin</option>
+              <option value="Eletrolux">Eletrolux</option>
+              <option value="Gree">Gree</option>
+              <option value="Consul">Consul</option>
+              <option value="Midea">Midea</option>
+              <option value="Dako">Dako</option>
+              <option value="Aoc">Aoc</option>
+              <option value="JBL">JBL</option>
             </select>
           )}
           {type === "Cosmético" && (
@@ -205,13 +220,13 @@ const Write = () => {
               onChange={(e) => setBrand(e.target.value)}
               required
             >
+              <option value="N.I.">Marca</option>
               <option value="Boticário">Boticário</option>
               <option value="Natura">Natura</option>
               <option value="Pacco Rabane">Pacco Rabane</option>
               <option value="Dolce e Gabbana">Dolce e Gabbana</option>
               <option value="Hinodde">Hinodde</option>
               <option value="Calvin Klein">Calvin Klein</option>
-              <option value="Outros">Outros</option>
             </select>
           )}
           {type === "Munição" && (
@@ -227,7 +242,6 @@ const Write = () => {
               <option value="Aguila">Aguila</option>
               <option value="Sellier&Bellot">Sellier&Bellot</option>
               <option value="Speer">Speer</option>
-              <option value="Outros">Outros</option>
             </select>
           )}
           {type === "Arma" && (
@@ -243,7 +257,6 @@ const Write = () => {
               <option value="Rossi">Rossi</option>
               <option value="Boito">Boito</option>
               <option value="DFA">DFA</option>
-              <option value="Outros">Outros</option>
             </select>
           )}
           {type === "Documento" && (

@@ -91,9 +91,19 @@ const Home = () => {
               <h4>
                 {object.quantity} {object.unity}
               </h4>
-              {object.status === "deposited" && (<h4>{object.title}</h4>)}
-              {object.status === "refound" && (<h4><span>RESTITUÍDO </span>{object.title}</h4>)}
-              {object.status === "incinerated" && (<h4><label>INCINERADO </label>{object.title}</h4>)}
+              {object.status === "deposited" && <h4>{object.title}</h4>}
+              {object.status === "refound" && (
+                <h4>
+                  <span>RESTITUÍDO </span>
+                  {object.title}
+                </h4>
+              )}
+              {object.status === "incinerated" && (
+                <h4>
+                  <label>INCINERADO </label>
+                  {object.title}
+                </h4>
+              )}
               <h4>{object.type}</h4>
               <h4>{object.brand}</h4>
               <h4>{object.color}</h4>
@@ -185,7 +195,12 @@ const Home = () => {
                   {object.quantity} {object.unity}
                 </h4>
               )}
-              {object.status === "refound" && (<h4><span>RESTITUÍDO </span>{object.title}</h4>)}
+              {object.status === "refound" && (
+                <h4>
+                  <span>RESTITUÍDO </span>
+                  {object.title}
+                </h4>
+              )}
               {object.status === "refound" && <h4>{object.type}</h4>}
               {object.status === "refound" && <h4>{object.brand}</h4>}
               {object.status === "refound" && <h4>{object.color}</h4>}
@@ -217,7 +232,7 @@ const Home = () => {
               )}
             </div>
           ))}
-          {/* --------------------------INCINERED CONDITION----------------------- */}
+        {/* --------------------------INCINERED CONDITION----------------------- */}
         {/* {objects &&
           status === "refound" &&
           objects.map((object) => (
@@ -232,14 +247,23 @@ const Home = () => {
                   {object.quantity} {object.unity}
                 </h4>
               )}
-              {object.status === "incinerated" && (<h4><label>INCINERADO </label>{object.title}</h4>)}
+              {object.status === "incinerated" && (
+                <h4>
+                  <label>INCINERADO </label>
+                  {object.title}
+                </h4>
+              )}
               {object.status === "incinerated" && <h4>{object.type}</h4>}
               {object.status === "incinerated" && <h4>{object.brand}</h4>}
               {object.status === "incinerated" && <h4>{object.color}</h4>}
-              {object.status === "incinerated" && <h4>{object.inquiryNumber}</h4>}
+              {object.status === "incinerated" && (
+                <h4>{object.inquiryNumber}</h4>
+              )}
               {object.status === "incinerated" && <h4>{object.term}</h4>}
               {object.status === "incinerated" && <h4>{object.aai}</h4>}
-              {object.status === "incinerated" && <h4>{object.reportNumber}</h4>}
+              {object.status === "incinerated" && (
+                <h4>{object.reportNumber}</h4>
+              )}
               {object.status === "incinerated" && (
                 <div className="links">
                   <Link to={`/object/${object.id}`}>
