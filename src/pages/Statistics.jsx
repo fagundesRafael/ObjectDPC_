@@ -6,6 +6,17 @@ const Statistics = () => {
   const { documents: userData } = useFetchDocuments("objects");
   const [chartData, setChartData] = useState(null);
   const [selectedOption, setSelectedOption] = useState("deposited");
+  const [totalDepositedItems, setTotalDepositedItems] = useState()
+  const [depositedPhones, setDepositedPhones] = useState()
+  const [depositedDrugs, setDepositedDrugs] = useState()
+  const [depositedGuns, setDepositedGuns] = useState()
+  const [depositedMunition, setDepositedMunition] = useState()
+  const [depositedEletronic, setDepositedEletronic] = useState()
+  const [depositedMobile, setDepositedMobile] = useState()
+  const [depositedDocumentation, setDepositedDocumentation] = useState()
+  const [depositedTool, setDepositedTool] = useState()
+  const [depositedCosmetic, setDepositedCosmetic] = useState()
+  const [depositedJewel, setDepositedJewel] = useState()
 
   const types = [];
 
@@ -22,6 +33,23 @@ const Statistics = () => {
         (acc, doc) => acc + doc.quantity,
         0
       );
+
+      console.log(totalQuantity)
+
+      const deposited = userData.filter(element => element.status === "deposited")
+
+      // Itens no depósito
+      setTotalDepositedItems(deposited.reduce((acc, element)=> (acc + element.quantity), 0))
+      setDepositedGuns(deposited.filter(element => element.type === "Arma").reduce((acc, element)=> (acc + element.quantity), 0))
+      setDepositedMunition(deposited.filter(element => element.type === "Munição").reduce((acc, element)=> (acc + element.quantity), 0))
+      setDepositedPhones(deposited.filter(element => element.type === "Celular").reduce((acc, element)=> (acc + element.quantity), 0))
+      setDepositedDrugs(deposited.filter(element => element.type === "Entorpecente").reduce((acc, element)=> (acc + element.quantity), 0))
+      setDepositedEletronic(deposited.filter(element => element.type === "Eletrônico").reduce((acc, element)=> (acc + element.quantity), 0))
+      setDepositedMobile(deposited.filter(element => element.type === "Móvel").reduce((acc, element)=> (acc + element.quantity), 0))
+      setDepositedDocumentation(deposited.filter(element => element.type === "Documento").reduce((acc, element)=> (acc + element.quantity), 0))
+      setDepositedTool(deposited.filter(element => element.type === "Ferramenta").reduce((acc, element)=> (acc + element.quantity), 0))
+      setDepositedCosmetic(deposited.filter(element => element.type === "Cosmético").reduce((acc, element)=> (acc + element.quantity), 0))
+      setDepositedJewel(deposited.filter(element => element.type === "Jóia").reduce((acc, element)=> (acc + element.quantity), 0))
 
       // Calcular a quantia de cada tipo de objeto
       const typeQuantities = {};
@@ -65,7 +93,7 @@ const Statistics = () => {
   return (
     <div className="statistics">
       <div className="graphics">
-        <h1>Estatísticas gerais:</h1>
+        <h1>Gráficos gerais:</h1>
         <div className="labelTop">
           <label htmlFor="status">Informe a condição do objeto:</label>
           <select
@@ -80,21 +108,26 @@ const Statistics = () => {
           </select>
         </div>
         {chartData && (
-          <div style={{ width: "750px" }}>
+          <div style={{ width: "900px" }}>
             <BarChart chartData={chartData} />
           </div>
         )}
       </div>
-      <div className="numbers">
-          <h1>relatórios</h1>
-          <h1>relatórios</h1>
-          <h1>relatórios</h1>
-          <h1>relatórios</h1>
-          <h1>relatórios</h1>
-          <h1>relatórios</h1>
-          <h1>relatórios</h1>
-          <h1>relatórios</h1>
-          <h1>relatórios</h1>
+      <div className="numbersInfo">
+          <h1>Itens presentes no depósito:</h1>
+          <div className="numbersIn">
+            <h2>Total de item(s) no depósito: <span>{totalDepositedItems}</span></h2>
+            <h2>Aparelho(s) smartphone(s): <span>{depositedPhones}</span></h2>
+            <h2>Entorpecente(s): <span>{depositedDrugs}</span></h2>
+            <h2>Arma(s): <span>{depositedGuns}</span></h2>
+            <h2>Munição(ões): <span>{depositedMunition}</span></h2>
+            <h2>Eletrônico(s): <span>{depositedEletronic}</span></h2>
+            <h2>Móvel(eis): <span>{depositedMobile}</span></h2>
+            <h2>Documento(s): <span>{depositedDocumentation}</span></h2>
+            <h2>Ferramenta(s): <span>{depositedTool}</span></h2>
+            <h2>Cosmético(s): <span>{depositedCosmetic}</span></h2>
+            <h2>Jóia(s) / Semi-jóia(s): <span>{depositedJewel}</span></h2>
+          </div>
       </div>
     </div>
   );
