@@ -44,8 +44,11 @@ const Edit = () => {
       setFormError(object.formError);
       setStatus(object.status);
       setItemsChar([]);
+
     }
   }, [object]);
+  
+  console.log(itemsChar)
 
   const { user } = useAuthValue();
 
